@@ -1,14 +1,5 @@
 window.archivePhotos = [
-  { src: "", caption: "Caption" },
-  { src: "", caption: "Caption" },
-  { src: "", caption: "Caption" },
-  { src: "", caption: "Caption" },
-  { src: "", caption: "Caption" },
-  { src: "", caption: "Caption" },
-  { src: "", caption: "Caption" },
-  { src: "", caption: "Caption" },
-  { src: "", caption: "Caption" },
-  { src: "", caption: "Caption" },
-  { src: "", caption: "Caption" },
-  { src: "", caption: "Caption" }
+  // Add Library photos here after placing the image files in images/library/.
+  // Example:
+  // { src: "images/library/photo-name.jpg", caption: "Small caption" }
 ];
