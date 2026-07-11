@@ -24,7 +24,8 @@ def slugify(value: str) -> str:
 
 
 def caption_from_name(path: Path) -> str:
-    words = re.sub(r"[-_]+", " ", path.stem).strip()
+    words = re.sub(r"[-_]+", " ", path.stem)
+    words = re.sub(r"^\s*\d+\s+", "", words).strip()
     return words.title() if words else "Caption"
 
 
