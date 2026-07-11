@@ -100,12 +100,23 @@ h1,
 
 .book-back {
   opacity: 0;
-  transition: opacity 900ms ease;
 }
 
 .photo-card:hover .book-back,
 .photo-card:focus-within .book-back {
-  opacity: 1;
+  animation: reveal-back-cover 3.6s ease both;
+}
+
+@keyframes reveal-back-cover {
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  35%,
+  62% {
+    opacity: 1;
+  }
 }
 
 figcaption {
