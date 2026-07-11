@@ -21,4 +21,4 @@ Open `index.html` in a browser to view the site.
 /Users/Kels/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 tools/process_library_images.py
 ```
 
-The script exports cleaned images to `images/library/processed/` and updates `photos.js` with captions from the original file names. If a matching back cover exists, the site fades to it when the book is hovered or focused.
+The script fits each scan neatly into the same invisible frame, exports the files to `images/library/processed/`, and updates `photos.js` with captions from the original file names. If a matching back cover exists, the site fades to it when the book is hovered or focused.

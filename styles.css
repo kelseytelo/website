@@ -89,7 +89,7 @@ h1,
 .photo-holder {
   aspect-ratio: 4 / 3;
   display: block;
-  object-fit: cover;
+  object-fit: contain;
   width: 100%;
 }
 
