@@ -1,6 +1,7 @@
 :root {
   color-scheme: light;
   --background: #f7f5f0;
+  --muted: #7a6a5f;
   --text: #24150f;
 }
 
@@ -21,13 +22,36 @@ body {
 }
 
 .site-header {
-  padding: 24px;
+  padding: 24px 24px 18px;
 }
 
-h1 {
+h1,
+.site-header a {
   margin: 0;
+  color: var(--text);
+  display: inline-block;
   font-size: 0.9rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   line-height: 1;
+  text-decoration: none;
+}
+
+.site-menu {
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+  padding: 0 24px;
+}
+
+.site-menu a {
+  color: var(--text);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.site-menu a:hover,
+.site-menu a:focus-visible {
+  color: var(--muted);
 }
