@@ -80,11 +80,32 @@ h1,
   margin: 0;
 }
 
+.photo-media {
+  aspect-ratio: 4 / 3;
+  display: grid;
+  position: relative;
+}
+
 .photo-holder {
   aspect-ratio: 4 / 3;
   display: block;
   object-fit: cover;
   width: 100%;
+}
+
+.photo-media .photo-holder {
+  grid-area: 1 / 1;
+  height: 100%;
+}
+
+.book-back {
+  opacity: 0;
+  transition: opacity 900ms ease;
+}
+
+.photo-card:hover .book-back,
+.photo-card:focus-within .book-back {
+  opacity: 1;
 }
 
 figcaption {

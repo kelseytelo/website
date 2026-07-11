@@ -10,7 +10,11 @@ from PIL import Image, ImageChops, ImageFilter, ImageStat
 
 ROOT = Path(__file__).resolve().parents[1]
 ORIGINALS_DIR = ROOT / "images" / "library" / "originals"
+FRONT_DIR = ORIGINALS_DIR / "front"
+BACK_DIR = ORIGINALS_DIR / "back"
 PROCESSED_DIR = ROOT / "images" / "library" / "processed"
+PROCESSED_FRONT_DIR = PROCESSED_DIR / "front"
+PROCESSED_BACK_DIR = PROCESSED_DIR / "back"
 PHOTO_LIST = ROOT / "photos.js"
 
 CANVAS_SIZE = (1200, 900)
@@ -197,17 +201,48 @@ def fit_on_canvas(image: Image.Image) -> Image.Image:
     return canvas
 
 
-def process_image(path: Path, index: int) -> dict[str, str]:
+def supported_images(directory: Path) -> list[Path]:
+    if not directory.exists():
+        return []
+
+    return sorted(
+        path
+        for path in directory.iterdir()
+        if path.is_file() and path.suffix.lower() in SUPPORTED_EXTENSIONS
+    )
+
+
+def matching_back_cover(front_path: Path) -> Path | None:
+    slug = slugify(front_path.stem)
+    for path in supported_images(BACK_DIR):
+        if slugify(path.stem) == slug:
+            return path
+
+    return None
+
+
+def process_image(path: Path, output_dir: Path, index: int, side: str) -> str:
     image = Image.open(path)
     processed = fit_on_canvas(trim_to_subject(image))
 
-    filename = f"{index:02d}-{slugify(path.stem)}.png"
-    output_path = PROCESSED_DIR / filename
+    filename = f"{index:02d}-{slugify(path.stem)}-{side}.png"
+    output_path = output_dir / filename
     processed.save(output_path, optimize=True)
+    return f"images/library/processed/{side}/{filename}"
 
+
+def process_book(front_path: Path, index: int) -> dict[str, str]:
+    entry = {
+        "src": process_image(front_path, PROCESSED_FRONT_DIR, index, "front"),
+        "caption": caption_from_name(front_path),
+    }
+    back_path = matching_back_cover(front_path)
+    if back_path:
+        entry["backSrc"] = process_image(back_path, PROCESSED_BACK_DIR, index, "back")
     return {
-        "src": f"images/library/processed/{filename}",
-        "caption": caption_from_name(path),
+        key: value
+        for key, value in entry.items()
+        if value
     }
 
 
@@ -222,18 +257,19 @@ def write_photo_list(entries: list[dict[str, str]]) -> None:
 
 def main() -> None:
     ORIGINALS_DIR.mkdir(parents=True, exist_ok=True)
-    PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
+    FRONT_DIR.mkdir(parents=True, exist_ok=True)
+    BACK_DIR.mkdir(parents=True, exist_ok=True)
+    PROCESSED_FRONT_DIR.mkdir(parents=True, exist_ok=True)
+    PROCESSED_BACK_DIR.mkdir(parents=True, exist_ok=True)
 
-    for old_file in PROCESSED_DIR.glob("*.png"):
+    for old_file in PROCESSED_DIR.rglob("*.png"):
         old_file.unlink()
 
-    originals = sorted(
-        path
-        for path in ORIGINALS_DIR.iterdir()
-        if path.is_file() and path.suffix.lower() in SUPPORTED_EXTENSIONS
-    )
+    originals = supported_images(FRONT_DIR)
+    if not originals:
+        originals = supported_images(ORIGINALS_DIR)
 
-    entries = [process_image(path, index) for index, path in enumerate(originals, 1)]
+    entries = [process_book(path, index) for index, path in enumerate(originals, 1)]
     write_photo_list(entries)
     print(f"Processed {len(entries)} Library photo(s).")
 
