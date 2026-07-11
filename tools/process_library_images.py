@@ -29,6 +29,88 @@ def caption_from_name(path: Path) -> str:
     return words.title() if words else "Caption"
 
 
+def largest_inner_component_bbox(mask: Image.Image) -> tuple[int, int, int, int] | None:
+    width, height = mask.size
+    max_side = max(width, height)
+    scale = min(1.0, 900 / max_side)
+    work = mask
+    if scale < 1:
+        work = mask.resize(
+            (max(1, round(width * scale)), max(1, round(height * scale))),
+            Image.Resampling.NEAREST,
+        )
+
+    work_width, work_height = work.size
+    pixels = work.load()
+    seen = bytearray(work_width * work_height)
+    best: tuple[int, int, int, int, int] | None = None
+
+    for y in range(work_height):
+        for x in range(work_width):
+            index = y * work_width + x
+            if seen[index] or pixels[x, y] == 0:
+                continue
+
+            stack = [(x, y)]
+            seen[index] = 1
+            area = 0
+            left = right = x
+            top = bottom = y
+            touches_border = False
+
+            while stack:
+                current_x, current_y = stack.pop()
+                area += 1
+                left = min(left, current_x)
+                right = max(right, current_x)
+                top = min(top, current_y)
+                bottom = max(bottom, current_y)
+
+                if (
+                    current_x == 0
+                    or current_y == 0
+                    or current_x == work_width - 1
+                    or current_y == work_height - 1
+                ):
+                    touches_border = True
+
+                for next_x, next_y in (
+                    (current_x - 1, current_y),
+                    (current_x + 1, current_y),
+                    (current_x, current_y - 1),
+                    (current_x, current_y + 1),
+                ):
+                    if not (0 <= next_x < work_width and 0 <= next_y < work_height):
+                        continue
+
+                    next_index = next_y * work_width + next_x
+                    if seen[next_index] or pixels[next_x, next_y] == 0:
+                        continue
+
+                    seen[next_index] = 1
+                    stack.append((next_x, next_y))
+
+            if touches_border:
+                continue
+
+            if best is None or area > best[0]:
+                best = (area, left, top, right + 1, bottom + 1)
+
+    if best is None:
+        return None
+
+    _, left, top, right, bottom = best
+    if scale < 1:
+        return (
+            max(0, math.floor(left / scale)),
+            max(0, math.floor(top / scale)),
+            min(width, math.ceil(right / scale)),
+            min(height, math.ceil(bottom / scale)),
+        )
+
+    return (left, top, right, bottom)
+
+
 def estimate_background(image: Image.Image) -> tuple[int, int, int]:
     image = image.convert("RGB")
     width, height = image.size
@@ -68,25 +150,30 @@ def foreground_mask(image: Image.Image) -> Image.Image:
     return mask
 
 
+def dark_subject_bbox(image: Image.Image) -> tuple[int, int, int, int] | None:
+    grayscale = image.convert("L")
+    stat = ImageStat.Stat(grayscale)
+    threshold = max(48, min(170, int(stat.mean[0] - stat.stddev[0] * 0.35)))
+    mask = grayscale.point(lambda pixel: 255 if pixel < threshold else 0)
+    mask = mask.filter(ImageFilter.MedianFilter(7))
+    return largest_inner_component_bbox(mask) or mask.getbbox()
+
+
 def trim_to_subject(image: Image.Image) -> Image.Image:
-    mask = foreground_mask(image)
-    bbox = mask.getbbox()
+    bbox = dark_subject_bbox(image) or foreground_mask(image).getbbox()
     if not bbox:
         return image.convert("RGBA")
 
     left, top, right, bottom = bbox
     width, height = image.size
-    margin = max(8, round(max(width, height) * 0.012))
+    margin = max(8, round(max(width, height) * 0.006))
 
     left = max(0, left - margin)
     top = max(0, top - margin)
     right = min(width, right + margin)
     bottom = min(height, bottom + margin)
 
-    trimmed = image.convert("RGBA").crop((left, top, right, bottom))
-    trimmed_mask = mask.crop((left, top, right, bottom))
-    trimmed.putalpha(trimmed_mask)
-    return trimmed
+    return image.convert("RGBA").crop((left, top, right, bottom))
 
 
 def fit_on_canvas(image: Image.Image) -> Image.Image:
