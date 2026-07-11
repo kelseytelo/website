@@ -84,6 +84,9 @@ h1,
   aspect-ratio: 4 / 3;
   background: var(--holder);
   border: 1px solid var(--line);
+  display: block;
+  object-fit: cover;
+  width: 100%;
 }
 
 figcaption {
