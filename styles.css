@@ -66,10 +66,22 @@ h1,
   padding: 40px 24px;
 }
 
+.photo-card {
+  margin: 0;
+}
+
 .photo-holder {
   aspect-ratio: 4 / 3;
   background: var(--holder);
   border: 1px solid var(--line);
+}
+
+figcaption {
+  min-height: 1.2rem;
+  padding-top: 6px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 600;
 }
 
 @media (max-width: 700px) {
