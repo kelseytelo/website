@@ -42,11 +42,18 @@ h1,
   text-decoration: none;
 }
 
+.archive-layout {
+  display: grid;
+  gap: 32px;
+  grid-template-columns: 132px minmax(0, 920px);
+  align-items: start;
+  padding: 0 24px 40px;
+}
+
 .site-menu {
   display: grid;
   gap: 10px;
   justify-items: start;
-  padding: 0 24px;
 }
 
 .site-menu a {
@@ -73,8 +80,7 @@ h1,
   display: grid;
   gap: 14px;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  max-width: 920px;
-  padding: 40px 24px;
+  width: 100%;
 }
 
 .photo-card {
@@ -96,6 +102,11 @@ figcaption {
 }
 
 @media (max-width: 700px) {
+  .archive-layout {
+    gap: 28px;
+    grid-template-columns: 1fr;
+  }
+
   .photo-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
