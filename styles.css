@@ -50,15 +50,20 @@ h1,
 }
 
 .site-menu a {
-  color: var(--plum);
-  font-size: 0.95rem;
-  font-weight: 800;
+  color: #000000;
+  font-size: 0.82rem;
+  font-weight: 700;
   text-decoration: none;
 }
 
 .site-menu a:hover,
+.site-menu a:focus-visible,
+.site-menu a[aria-current="page"] {
+  color: var(--plum);
+}
+
+.site-menu a:hover,
 .site-menu a:focus-visible {
-  color: var(--plum-hover);
   text-decoration: underline;
   text-decoration-thickness: 2px;
   text-underline-offset: 3px;
