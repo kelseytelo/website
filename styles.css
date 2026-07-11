@@ -69,13 +69,6 @@ h1,
   color: var(--plum);
 }
 
-.site-menu a:hover,
-.site-menu a:focus-visible {
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 3px;
-}
-
 .photo-grid {
   display: grid;
   gap: 14px;
