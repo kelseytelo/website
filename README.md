@@ -22,3 +22,14 @@ Open `index.html` in a browser to view the site.
 ```
 
 The script fits each scan neatly into the same invisible frame, exports the files to `images/library/processed/`, and updates `photos.js` with captions from the original file names. If a matching back cover exists, the site fades to it when the book is hovered or focused.
+
+## What Is Luck Images
+
+1. Add images to `images/what-is-luck/originals/`.
+2. Run:
+
+```bash
+/Users/Kels/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 tools/process_luck_images.py
+```
+
+The script fits each image into the carousel frame, exports the files to `images/what-is-luck/processed/`, and updates `luck.js`.

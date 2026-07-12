@@ -164,6 +164,56 @@ figcaption {
   text-align: center;
 }
 
+.journal-entry {
+  width: 100%;
+}
+
+.carousel {
+  align-items: center;
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 28px minmax(0, 560px) 28px;
+  max-width: 644px;
+}
+
+.carousel-slide {
+  margin: 0;
+  min-width: 0;
+}
+
+.carousel-image {
+  aspect-ratio: 4 / 3;
+  display: block;
+  object-fit: contain;
+  width: 100%;
+}
+
+.carousel-button {
+  align-items: center;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: #000000;
+  cursor: pointer;
+  display: grid;
+  font: inherit;
+  font-size: 0.9rem;
+  height: 28px;
+  justify-items: center;
+  padding: 0;
+  width: 28px;
+}
+
+.carousel-button:hover,
+.carousel-button:focus-visible {
+  color: var(--plum);
+}
+
+.carousel-button[hidden],
+.carousel[hidden] {
+  display: none;
+}
+
 @media (max-width: 700px) {
   .archive-layout {
     gap: 28px;
@@ -172,5 +222,9 @@ figcaption {
 
   .photo-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .carousel {
+    grid-template-columns: 24px minmax(0, 1fr) 24px;
   }
 }

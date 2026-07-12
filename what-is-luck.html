@@ -11,17 +11,30 @@
     <header class="site-header">
       <a href="index.html">KELSEY'S ARCHIVE</a>
     </header>
-    <main class="site-menu" aria-label="Archive menu">
-      <a href="index.html">Library</a>
-      <span class="menu-group">
-        <a href="journal.html">Journal</a>
-        <span class="submenu">
-          <a href="what-is-luck.html" aria-current="page">What is luck?</a>
+    <div class="archive-layout">
+      <nav class="site-menu" aria-label="Archive menu">
+        <a href="index.html">Library</a>
+        <span class="menu-group">
+          <a href="journal.html">Journal</a>
+          <span class="submenu">
+            <a href="what-is-luck.html" aria-current="page">What is luck?</a>
+          </span>
         </span>
-      </span>
-      <a href="blog.html">Blog</a>
-      <a href="photos.html">Photos</a>
-      <a href="about.html">About</a>
-    </main>
+        <a href="blog.html">Blog</a>
+        <a href="photos.html">Photos</a>
+        <a href="about.html">About</a>
+      </nav>
+      <main class="journal-entry" aria-label="What is luck?">
+        <section class="carousel" data-luck-carousel>
+          <button class="carousel-button carousel-button-previous" type="button" aria-label="Previous image">&lt;</button>
+          <figure class="carousel-slide">
+            <img class="carousel-image" alt="">
+          </figure>
+          <button class="carousel-button carousel-button-next" type="button" aria-label="Next image">&gt;</button>
+        </section>
+      </main>
+    </div>
+    <script src="luck.js?v=20260711-carousel"></script>
+    <script src="luck-carousel.js?v=20260711-carousel"></script>
   </body>
 </html>
