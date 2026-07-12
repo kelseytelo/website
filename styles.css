@@ -64,26 +64,35 @@ h1,
 }
 
 .menu-group {
-  display: grid;
-  gap: 8px;
-  justify-items: start;
+  display: inline-block;
+  margin-bottom: 0;
+  position: relative;
+  transition: margin-bottom 180ms ease;
+}
+
+.menu-group:hover,
+.menu-group:focus-within {
+  margin-bottom: 1.5rem;
 }
 
 .submenu {
   display: grid;
-  gap: 8px;
+  gap: 6px;
   justify-items: start;
-  max-height: 0;
+  left: 0;
   opacity: 0;
-  overflow: hidden;
-  padding-left: 10px;
-  transition: max-height 180ms ease, opacity 180ms ease;
+  padding-top: 7px;
+  pointer-events: none;
+  position: absolute;
+  top: 100%;
+  transition: opacity 180ms ease;
+  z-index: 2;
 }
 
 .menu-group:hover .submenu,
 .menu-group:focus-within .submenu {
-  max-height: 2rem;
   opacity: 1;
+  pointer-events: auto;
 }
 
 .submenu a {
