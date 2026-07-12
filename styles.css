@@ -171,9 +171,9 @@ figcaption {
 .carousel {
   align-items: center;
   display: grid;
-  gap: 14px;
-  grid-template-columns: 28px minmax(0, 560px) 28px;
-  max-width: 644px;
+  gap: 10px;
+  grid-template-columns: 24px minmax(0, 420px) 24px;
+  max-width: 488px;
 }
 
 .carousel-slide {
@@ -197,11 +197,11 @@ figcaption {
   cursor: pointer;
   display: grid;
   font: inherit;
-  font-size: 0.9rem;
-  height: 28px;
+  font-size: 0.82rem;
+  height: 24px;
   justify-items: center;
   padding: 0;
-  width: 28px;
+  width: 24px;
 }
 
 .carousel-button:hover,
