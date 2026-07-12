@@ -63,6 +63,33 @@ h1,
   text-decoration: none;
 }
 
+.menu-group {
+  display: grid;
+  gap: 8px;
+  justify-items: start;
+}
+
+.submenu {
+  display: grid;
+  gap: 8px;
+  justify-items: start;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  padding-left: 10px;
+  transition: max-height 180ms ease, opacity 180ms ease;
+}
+
+.menu-group:hover .submenu,
+.menu-group:focus-within .submenu {
+  max-height: 2rem;
+  opacity: 1;
+}
+
+.submenu a {
+  font-size: 0.72rem;
+}
+
 .site-menu a:hover,
 .site-menu a:focus-visible,
 .site-menu a[aria-current="page"] {
