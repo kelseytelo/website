@@ -289,6 +289,21 @@ figcaption {
   margin: 16px 0 0;
 }
 
+.section-intro {
+  margin: -4px 0 22px;
+  max-width: 680px;
+}
+
+.section-intro p {
+  margin: 6px 0 0;
+}
+
+.section-intro .work-role {
+  color: var(--muted);
+  font-size: 0.76rem;
+  margin-top: 0;
+}
+
 .case-study-block {
   margin-top: 28px;
 }
