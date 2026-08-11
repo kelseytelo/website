@@ -70,6 +70,57 @@ h1,
   color: var(--plum);
 }
 
+.landing-stage {
+  align-items: start;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.landing-slideshow {
+  aspect-ratio: 4 / 3;
+  display: grid;
+  max-width: 680px;
+  width: 100%;
+}
+
+.landing-slide {
+  grid-area: 1 / 1;
+  height: 100%;
+  opacity: 0;
+  position: relative;
+  transition: opacity 1.8s ease;
+  width: 100%;
+}
+
+.landing-slide.is-visible {
+  opacity: 1;
+}
+
+.landing-image {
+  display: block;
+  height: 100%;
+  object-fit: contain;
+  width: 100%;
+}
+
+.landing-fortune {
+  background: rgb(247 245 240 / 94%);
+  bottom: 10%;
+  color: var(--plum);
+  font-size: 0.72rem;
+  font-weight: 400;
+  left: 50%;
+  line-height: 1.35;
+  margin: 0;
+  max-width: 360px;
+  padding: 7px 10px;
+  position: absolute;
+  text-align: center;
+  transform: translateX(-50%);
+  width: 58%;
+}
+
 .photo-grid {
   display: grid;
   gap: 14px;
@@ -424,6 +475,10 @@ figcaption {
     grid-template-columns: 1fr;
   }
 
+  .landing-stage {
+    justify-content: start;
+  }
+
   .photo-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -461,5 +516,11 @@ figcaption {
     font-size: 0.78rem;
     height: 22px;
     width: 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-slide {
+    transition: none;
   }
 }
