@@ -286,6 +286,11 @@ figcaption {
   font-size: 0.76rem;
 }
 
+.section-more {
+  font-size: 0.76rem;
+  margin: 16px 0 0;
+}
+
 .case-study-block {
   margin-top: 28px;
 }
