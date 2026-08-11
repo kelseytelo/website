@@ -304,6 +304,41 @@ figcaption {
   margin-top: 0;
 }
 
+.back-to-top {
+  align-items: center;
+  background: rgb(247 245 240 / 94%);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  bottom: max(16px, env(safe-area-inset-bottom));
+  color: var(--text);
+  cursor: pointer;
+  display: grid;
+  font: inherit;
+  font-size: 0.9rem;
+  height: 34px;
+  justify-items: center;
+  padding: 0;
+  position: fixed;
+  right: max(16px, env(safe-area-inset-right));
+  width: 34px;
+  z-index: 10;
+}
+
+.back-to-top:hover,
+.back-to-top:focus-visible {
+  border-color: var(--plum);
+  color: var(--plum);
+}
+
+.back-to-top:focus-visible {
+  outline: 2px solid var(--plum);
+  outline-offset: 2px;
+}
+
+.back-to-top[hidden] {
+  display: none;
+}
+
 .case-study-block {
   margin-top: 28px;
 }
