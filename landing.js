@@ -23,22 +23,6 @@ if (slideshow && images.length > 0) {
     queue = shuffle(images.filter((image) => image.src !== currentImage.src));
   };
 
-  layers.forEach((layer) => {
-    const toggleDescription = () => {
-      if (layer.classList.contains("is-visible")) {
-        layer.classList.toggle("is-description-visible");
-      }
-    };
-
-    layer.addEventListener("click", toggleDescription);
-    layer.addEventListener("keydown", (event) => {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        toggleDescription();
-      }
-    });
-  });
-
   images.slice(1).forEach((image) => {
     const preload = new Image();
     preload.src = image.src;
@@ -56,19 +40,12 @@ if (slideshow && images.length > 0) {
       const nextLayer = visibleLayer === 0 ? 1 : 0;
 
       const image = layers[nextLayer].querySelector(".landing-image");
-      const fortune = layers[nextLayer].querySelector(".landing-fortune");
-
       image.src = nextImage.src;
       image.alt = nextImage.alt;
-      fortune.textContent = nextImage.fortune;
-      layers[nextLayer].classList.remove("is-description-visible");
       layers[nextLayer].classList.add("is-visible");
       layers[nextLayer].setAttribute("aria-hidden", "false");
-      layers[nextLayer].setAttribute("tabindex", "0");
-      layers[visibleLayer].classList.remove("is-description-visible");
       layers[visibleLayer].classList.remove("is-visible");
       layers[visibleLayer].setAttribute("aria-hidden", "true");
-      layers[visibleLayer].setAttribute("tabindex", "-1");
 
       currentImage = nextImage;
       visibleLayer = nextLayer;

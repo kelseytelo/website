@@ -85,7 +85,6 @@ h1,
 }
 
 .landing-slide {
-  cursor: pointer;
   grid-area: 1 / 1;
   height: 100%;
   opacity: 0;
@@ -100,43 +99,11 @@ h1,
   pointer-events: auto;
 }
 
-.landing-slide:focus-visible {
-  outline: 1px solid var(--plum);
-  outline-offset: 4px;
-}
-
 .landing-image {
   display: block;
   height: 100%;
   object-fit: contain;
   width: 100%;
-}
-
-.landing-fortune {
-  background: rgb(247 245 240 / 94%);
-  bottom: 10%;
-  color: var(--plum);
-  font-size: 0.72rem;
-  font-weight: 400;
-  left: 50%;
-  line-height: 1.35;
-  margin: 0;
-  max-width: 360px;
-  opacity: 0;
-  padding: 7px 10px;
-  pointer-events: none;
-  position: absolute;
-  text-align: center;
-  transform: translate(-50%, 4px);
-  transition: opacity 180ms ease, transform 180ms ease;
-  width: 58%;
-}
-
-.landing-slide:hover .landing-fortune,
-.landing-slide:focus-visible .landing-fortune,
-.landing-slide.is-description-visible .landing-fortune {
-  opacity: 1;
-  transform: translate(-50%, 0);
 }
 
 .photo-grid {
@@ -538,8 +505,7 @@ figcaption {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .landing-slide,
-  .landing-fortune {
+  .landing-slide {
     transition: none;
   }
 }
